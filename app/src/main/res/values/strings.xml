@@ -4,5 +4,5 @@
     <string name="ctime_tittle_label">Tittle</string>
     <string name="crime_details_label">Details</string>
     <string name="crime_solved_label">Solved</string>
-    
+    <dimen name="size_font_police">15sp</dimen>
 </resources>

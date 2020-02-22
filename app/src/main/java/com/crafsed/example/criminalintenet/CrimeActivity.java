@@ -6,9 +6,15 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 
+import java.util.UUID;
+
 public class CrimeActivity extends SingleFragmentActivity {
+    static volatile String EXTRA_CRIME_ID =
+            "com.bignerdranch.android.criminalintent.crime_id";
     @Override
     protected Fragment createFragment() {
-            return new CrimeFragment();
+        UUID uuid = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        return CrimeFragment.newInstance(uuid);
+
     }
 }
