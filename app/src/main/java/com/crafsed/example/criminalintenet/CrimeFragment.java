@@ -29,6 +29,11 @@ import java.util.UUID;
 import static android.app.Activity.RESULT_OK;
 
 public class CrimeFragment extends Fragment {
+
+    public interface MyListener{
+        void onLastButtonClicked();
+        void onFirstButtonClicked();
+    }
     private static final int REQUEST_DATE = 0;
 
     private Crime mCrime;
@@ -83,6 +88,31 @@ public class CrimeFragment extends Fragment {
                 mCrime.setSolved(isChecked);
             }
         });
+
+        CheckBox mReqPolice = v.findViewById(R.id.checkBox);
+        mReqPolice.setChecked(mCrime.isRequiresPolice());
+        mReqPolice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCrime.setRequiresPolice(isChecked);
+            }
+        });
+
+        Button firstButton = v.findViewById(R.id.button);
+        Button lastButton = v.findViewById(R.id.button2);
+        firstButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMyListener.onFirstButtonClicked();
+            }
+        });
+
+        lastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMyListener.onLastButtonClicked();
+            }
+        });
         return v;
 
     }
@@ -113,5 +143,11 @@ public class CrimeFragment extends Fragment {
 
     private void updatetDate() {
         mDateButton.setText(dateFormater.format(mCrime.getDate()));
+    }
+    MyListener mMyListener;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        mMyListener = (MyListener) context;
+        super.onAttach(context);
     }
 }

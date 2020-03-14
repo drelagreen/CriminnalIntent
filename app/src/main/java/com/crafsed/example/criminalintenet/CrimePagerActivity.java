@@ -15,7 +15,8 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.MyListener {
+
     static volatile String EXTRA_CRIME_ID =
             "com.bignerdranch.android.criminalintent.crime_id";
 
@@ -57,10 +58,20 @@ public class CrimePagerActivity extends AppCompatActivity {
 
         mViewPager.setCurrentItem(CrimeFactory.get(this).getCrimeNumber(crimeId));
 
-
     }
     public static int convertDip2Pixels(Context context, int dip) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, context.getResources().getDisplayMetrics());
     }
+
+    @Override
+    public void onLastButtonClicked() {
+        mViewPager.setCurrentItem(mCrimes.size()-1);
+    }
+
+    @Override
+    public void onFirstButtonClicked() {
+        mViewPager.setCurrentItem(0);
+    }
+
 }
 
