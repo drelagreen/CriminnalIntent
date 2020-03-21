@@ -14,17 +14,7 @@ public class CrimeFactory {
     private static CrimeFactory instance;
     private CrimeFactory(Context context){
         mCrimes = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Crime c = new Crime();
-            c.setTitle("Crime #"+i);
-            c.setSolved(i%2 == 0);
-            mCrimes.add(i,c);
-            mCrimesMap.put(c.getId(),i);
-        }
-        mCrimes.get(5).setRequiresPolice(true);
-        mCrimes.get(6).setRequiresPolice(true);
-        mCrimes.get(10).setRequiresPolice(true);
-        mCrimes.get(0).setRequiresPolice(true);
+
     }
 
     private List<Crime> mCrimes;
@@ -57,5 +47,11 @@ public class CrimeFactory {
             instance = new CrimeFactory(c);
         }
         return instance;
+    }
+    int i = 0;
+    void addCrime(Crime c){
+        mCrimes.add(i,c);
+        mCrimesMap.put(c.getId(),i);
+        i++;
     }
 }
